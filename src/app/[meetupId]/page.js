@@ -1,8 +1,10 @@
-import Layout from "@/components/layout/Layout";
-import MeetupList from "@/components/meetups/MeetupList";
-import Image from "next/image";
+import React from 'react'
+import classes from '../../components/meetups/MeetupItem.module.css'
+import MeetupItem from '@/components/meetups/MeetupItem';
 
-export default function Home() {
+function ShowDetails({params}) {
+  const paramid = params.meetupId;
+
   const meetups = [
     {
       id: "m1",
@@ -26,6 +28,20 @@ export default function Home() {
       discription: "this is third discription",
     },
   ];
-
-  return <MeetupList meetups={meetups} />;
+  const item = meetups.find((items)=>{
+    return items.id===paramid
+  })
+  return (
+    <div className={classes.list}>
+       <MeetupItem
+          key={item.key}
+          id={item.id}
+          image={item.image}
+          title={item.title}
+          address={item.address}
+        />
+      </div>
+  )
 }
+
+export default ShowDetails
