@@ -1,11 +1,18 @@
-'use client';
+"use client";
 import NewMeetupForm from "@/components/meetups/NewMeetupForm";
-
-
-
-export default function NewMeetup (){
-    const addMeetupHandler= (data)=>{
-        console.log(data)
+import axios from "axios";
+export default function NewMeetup() {
+  const addMeetupHandler = async (data) => {
+    const res = await axios.post('/meetup-route',data,{ headers: { 'Content-Type': 'application/json' }})
+    if(res.status===201){
+      const data =  res.data
+      console.log(data)
+    }else {
+      console.log('error')
     }
-  return (<NewMeetupForm onAddMeetup={addMeetupHandler}/>) 
+   
+
+  }
+
+  return <NewMeetupForm onAddMeetup={addMeetupHandler} />;
 }
